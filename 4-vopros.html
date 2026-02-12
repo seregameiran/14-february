@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>💌 Самый главный вопрос</title>
+    
+    <!-- ПОДКЛЮЧАЕМ ОБЩИЕ СТИЛИ -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- КРАСИВЫЙ ШРИФТ -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(145deg, #fff0f5, #ffe4e9);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* АНИМИРОВАННЫЙ ФОН С СЕРДЕЧКАМИ */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart-bg span {
+            position: absolute;
+            font-size: 40px;
+            color: rgba(255, 107, 107, 0.1);
+            animation: floatHeart 8s infinite linear;
+        }
+
+        @keyframes floatHeart {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0.3; }
+            100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 80px;
+            padding: 60px 40px;
+            box-shadow: 0 30px 60px rgba(255, 107, 107, 0.2);
+            border: 2px solid rgba(255, 200, 200, 0.6);
+            position: relative;
+            z-index: 10;
+            animation: containerAppear 1s ease;
+        }
+
+        @keyframes containerAppear {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* ВОПРОС */
+        .question-wrapper {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .question {
+            font-size: 3.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff4d4d, #ff8c8c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-shadow: 0 5px 15px rgba(255, 77, 77, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .name-highlight {
+            font-size: 4rem;
+            color: #ff4d4d;
+            font-weight: 900;
+            display: inline-block;
+            border-bottom: 4px solid #ff4d4d;
+            padding-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        .sub-question {
+            font-size: 1.5rem;
+            color: #9e7a7a;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* КОНТЕЙНЕР КНОПОК */
+        .buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        /* КНОПКА "ДА" */
+        .btn-yes {
+            background: linear-gradient(145deg, #ff6b6b, #ff4757);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 2rem;
+            font-weight: 800;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 15px 35px rgba(255, 71, 87, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            letter-spacing: 4px;
+        }
+
+        .btn-yes:hover {
+            background: linear-gradient(145deg, #ff5252, #ff1e1e);
+            transform: scale(1.1);
+            box-shadow: 0 25px 45px rgba(255, 71, 87, 0.5);
+        }
+
+        /* КНОПКА "ДА Я ТЕБЯ ЛЮБЛЮ!!!" */
+        .btn-yes-love {
+            background: linear-gradient(145deg, #ff3b3b, #ff0000);
+            color: white;
+            border: none;
+            padding: 30px 70px;
+            font-size: 2.2rem;
+            font-weight: 900;
+            border-radius: 70px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 20px 45px rgba(255, 0, 0, 0.4);
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            letter-spacing: 6px;
+            animation: superPulse 1.5s infinite;
+            text-transform: uppercase;
+        }
+
+        @keyframes superPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 20px 45px rgba(255, 0, 0, 0.4); }
+            50% { transform: scale(1.08); box-shadow: 0 30px 60px rgba(255, 0, 0, 0.7); }
+        }
+
+        .btn-yes-love:hover {
+            background: linear-gradient(145deg, #ff1a1a, #cc0000);
+            transform: scale(1.15) !important;
+            box-shadow: 0 35px 70px rgba(255, 0, 0, 0.8);
+        }
+
+        /* ДЕКОРАТИВНЫЙ ЭЛЕМЕНТ */
+        .sparkles {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 50px;
+            font-size: 2rem;
+            opacity: 0.7;
+        }
+
+        /* МАЛЕНЬКАЯ ПОДСКАЗКА */
+        .hint {
+            margin-top: 40px;
+            font-size: 1rem;
+            color: #b28b8b;
+            font-style: italic;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ */
+        @media (max-width: 768px) {
+            .container { padding: 40px 20px; }
+            .question { font-size: 2.5rem; }
+            .name-highlight { font-size: 2.8rem; }
+            .btn-yes { padding: 15px 35px; font-size: 1.5rem; }
+            .btn-yes-love { padding: 20px 45px; font-size: 1.6rem; }
+        }
+
+        @media (max-width: 480px) {
+            .question { font-size: 2rem; }
+            .name-highlight { font-size: 2.2rem; }
+            .buttons-container { flex-direction: column; }
+            .btn-yes-love { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ФОН С ПЛАВАЮЩИМИ СЕРДЕЧКАМИ -->
+    <div class="heart-bg" id="heartBg"></div>
+
+    <div class="container">
+        <!-- ГЛАВНЫЙ ВОПРОС -->
+        <div class="question-wrapper">
+            <div class="question">А ТЫ</div>
+            <div class="name-highlight" id="userNameDisplay">ЛЮБИМАЯ</div>
+            <div class="question">МЕНЯ ЛЮБИШЬ?</div>
+            <div class="sub-question">(честно-честно?)</div>
+        </div>
+
+        <!-- КНОПКИ -->
+        <div class="buttons-container">
+            <!-- КНОПКА "ДА" -->
+            <button class="btn-yes" id="yesBtn">❤️ ДА ❤️</button>
+            
+            <!-- КНОПКА "ДА Я ТЕБЯ ЛЮБЛЮ!!!" -->
+            <button class="btn-yes-love" id="loveBtn">
+                💖 ДА Я ТЕБЯ ЛЮБЛЮ!!! 💖
+            </button>
+        </div>
+
+        <!-- ДЕКОР -->
+        <div class="sparkles">
+            ✨ 💕 ✨ 💕 ✨
+        </div>
+
+        <!-- МАЛЕНЬКАЯ ПОДСКАЗКА -->
+        <div class="hint">
+            ❤️ Обе кнопки правильные, но одна правильнее ❤️
+        </div>
+    </div>
+
+    <script>
+        // =========================================
+        // ЛОГИКА ГЛАВНОГО ВОПРОСА
+        // =========================================
+
+        // ПОЛУЧАЕМ ИМЯ
+        const userName = localStorage.getItem('userName') || 'ЛЮБИМАЯ';
+        document.getElementById('userNameDisplay').textContent = userName.toUpperCase();
+
+        // ЭЛЕМЕНТЫ КНОПОК
+        const yesBtn = document.getElementById('yesBtn');
+        const loveBtn = document.getElementById('loveBtn');
+
+        // ФУНКЦИЯ ДЛЯ ПЕРЕХОДА С ЭФФЕКТОМ
+        function goToFinal(button) {
+            // Анимация нажатия
+            button.style.transform = 'scale(0.9)';
+            button.style.transition = '0.2s';
+            
+            // Меняем текст на кнопке
+            const originalText = button.textContent;
+            button.textContent = '💗 Я ТОЖЕ ТЕБЯ ЛЮБЛЮ! 💗';
+            
+            // Запускаем конфетти
+            createConfetti();
+            
+            // Переходим на финальную страницу
+            setTimeout(() => {
+                window.location.href = '5-final.html';
+            }, 1500);
+        }
+
+        // ОБРАБОТЧИКИ ДЛЯ КНОПОК
+        yesBtn.addEventListener('click', function() {
+            goToFinal(this);
+        });
+
+        loveBtn.addEventListener('click', function() {
+            goToFinal(this);
+        });
+
+        // СОЗДАЁМ ПЛАВАЮЩИЕ СЕРДЕЧКИ НА ФОНЕ
+        function createFloatingHearts() {
+            const heartBg = document.getElementById('heartBg');
+            const emojis = ['❤️', '💖', '💕', '💗', '💓', '💘', '💝'];
+            
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement('span');
+                heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 8 + 's';
+                heart.style.fontSize = (Math.random() * 40 + 20) + 'px';
+                heart.style.opacity = Math.random() * 0.2 + 0.1;
+                heartBg.appendChild(heart);
+            }
+        }
+
+        // ПРОСТОЙ ЭФФЕКТ КОНФЕТТИ
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = -20 + 'px';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.background = ['#ff6b6b', '#ff8e8e', '#ffb8b8', '#ff4757'][Math.floor(Math.random() * 4)];
+                confetti.style.borderRadius = '50%';
+                confetti.style.pointerEvents = 'none';
+                confetti.style.zIndex = '9999';
+                confetti.style.animation = `fall ${Math.random() * 2 + 2}s linear forwards`;
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 4000);
+            }
+        }
+
+        // ДОБАВЛЯЕМ CSS-АНИМАЦИЮ ДЛЯ КОНФЕТТИ
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to { transform: translateY(100vh) rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // ЗАПУСКАЕМ СЕРДЕЧКИ
+        createFloatingHearts();
+
+        // ЭФФЕКТ ПРИ НАВЕДЕНИИ НА БОЛЬШУЮ КНОПКУ
+        loveBtn.addEventListener('mouseenter', function() {
+            this.style.animation = 'superPulse 0.8s infinite';
+        });
+
+        console.log('❤️ Главный вопрос задан! ❤️');
+    </script>
+
+    <!-- ПОДКЛЮЧАЕМ ОБЩИЙ СКРИПТ -->
+    <script src="js/script.js"></script>
+</body>
+</html>

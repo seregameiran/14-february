@@ -1,0 +1,51 @@
+/* ОБЩИЕ СТИЛИ ДЛЯ ВСЕГО САЙТА */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+    background: linear-gradient(145deg, #fff9f9 0%, #ffe9e9 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 48px;
+    padding: 48px 32px;
+    box-shadow: 0 20px 40px rgba(255, 120, 120, 0.15);
+    text-align: center;
+}
+
+.btn {
+    background: linear-gradient(145deg, #ff8a8a, #ff6b6b);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    font-size: 1.2rem;
+    border-radius: 60px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(255,107,107,0.3);
+}
+
+.insert-name {
+    color: #ff4757;
+    font-weight: 700;
+    border-bottom: 2px solid #ff6b6b;
+    padding-bottom: 2px;
+} 

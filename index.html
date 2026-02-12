@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>💌 Вход только для тебя</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #fff9f9 0%, #ffe9e9 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 48px;
+            padding: 48px 32px;
+            box-shadow: 0 20px 40px rgba(255, 120, 120, 0.15);
+            border: 1px solid rgba(255, 200, 200, 0.3);
+            text-align: center;
+            animation: fadeIn 1.2s ease;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.96); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #5a3a3a;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .sub {
+            font-size: 1.2rem;
+            color: #8b5a5a;
+            margin-bottom: 40px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .input-wrapper {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 18px 24px;
+            font-size: 1.2rem;
+            border: 2px solid #ffd4d4;
+            border-radius: 60px;
+            outline: none;
+            background: white;
+            transition: all 0.25s ease;
+            color: #4a3a3a;
+            font-weight: 400;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(255, 160, 160, 0.1);
+        }
+
+        input:focus {
+            border-color: #ff9e9e;
+            box-shadow: 0 8px 20px rgba(255, 140, 140, 0.2);
+            transform: scale(1.01);
+        }
+
+        input::placeholder {
+            color: #dbbaba;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        .shake {
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-5px); }
+            80% { transform: translateX(5px); }
+        }
+
+        button {
+            background: linear-gradient(145deg, #ff8a8a, #ff6b6b);
+            color: white;
+            border: none;
+            padding: 18px 42px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow: 0 12px 24px rgba(255, 100, 100, 0.3);
+            transition: all 0.2s ease;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            opacity: 0.9;
+            transform: scale(1);
+        }
+
+        button:hover {
+            background: linear-gradient(145deg, #ff7676, #ff5252);
+            box-shadow: 0 16px 32px rgba(255, 80, 80, 0.4);
+            transform: scale(1.02);
+            opacity: 1;
+        }
+
+        button:disabled {
+            opacity: 0.4;
+            transform: scale(0.98);
+            box-shadow: 0 6px 12px rgba(255, 100, 100, 0.2);
+            cursor: not-allowed;
+            background: linear-gradient(145deg, #dbbaba, #c9a9a9);
+        }
+
+        .hint {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: #b28b8b;
+            font-style: italic;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .error-hint {
+            color: #ff5e5e;
+            font-weight: 500;
+            opacity: 1;
+        }
+
+        .heart {
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+            margin: 0 4px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Для мобильных */
+        @media (max-width: 480px) {
+            .container { padding: 32px 20px; }
+            h1 { font-size: 1.8rem; }
+            input { padding: 16px 20px; }
+            button { padding: 16px 32px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💕 Привет, красавица</h1>
+        <div class="sub">У тебя самое красивое имя, но мне нужно его услышать</div>
+        
+        <div class="input-wrapper">
+            <input 
+                type="text" 
+                id="nameInput" 
+                placeholder="Введи своё имя..." 
+                autofocus
+                autocomplete="off"
+            >
+        </div>
+
+        <button id="enterBtn" disabled>✨ Войти ✨</button>
+        
+        <div class="hint" id="hintMessage">
+            <span class="heart">❤️</span> Только настоящее имя, пожалуйста <span class="heart">❤️</span>
+        </div>
+    </div>
+
+    <script>
+
+        const CORRECT_NAME = "Лина";
+
+        const nameInput = document.getElementById('nameInput');
+        const enterBtn = document.getElementById('enterBtn');
+        const hint = document.getElementById('hintMessage');
+
+        // Массив смешных/милых фраз для неправильного ввода
+        const errorMessages = [
+            "Хм... Ты точно Лина? Что-то не похоже 🤔",
+            "Ой, а я думал, ты — Лина... Попробуй ещё раз ❤️",
+            "Это имя красивое, но не твоё же! 😋",
+            "Не узнаю... Может, попробуешь ещё? 💕",
+            "Ты издеваешься? Введи правильно, зайка 😘",
+            "Доступ только для Лины 🤫",
+            "Неправильно! Ты же знаешь, как тебя зовут!",
+            "Ошибка ввода. Ожидалось: Лина 😄"
+        ];
+
+        // Активация кнопки при вводе текста
+        nameInput.addEventListener('input', function() {
+            const value = this.value.trim();
+            if (value.length > 0) {
+                enterBtn.disabled = false;
+            } else {
+                enterBtn.disabled = true;
+            }
+        });
+
+        // Обработка нажатия Enter в поле ввода
+        nameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !enterBtn.disabled) {
+                enterBtn.click();
+            }
+        });
+
+        // Клик по кнопке "Войти"
+        enterBtn.addEventListener('click', function() {
+            const enteredName = nameInput.value.trim();
+            
+            // Проверяем, совпадает ли введённое имя с правильным
+            if (enteredName.toLowerCase() === CORRECT_NAME.toLowerCase()) {
+                // =========================================
+                // ВСЁ ВЕРНО! СЧАСТЛИВЫЙ ВХОД
+                // =========================================
+                
+                // Сохраняем имя (в правильном регистре, как ввела она)
+                localStorage.setItem('userName', enteredName);
+                
+                // Анимация успеха перед переходом
+                enterBtn.textContent = '💖 Входи, любимая 💖';
+                enterBtn.style.background = 'linear-gradient(145deg, #9f7aea, #805ad5)';
+                
+                // Маленькая задержка, чтобы она увидела смену текста
+                setTimeout(() => {
+                    window.location.href = '1-klyatva.html'; // следующая страница
+                }, 600);
+                
+            } else {
+                // =========================================
+                // НЕПРАВИЛЬНОЕ ИМЯ — ПАСХАЛКА!
+                // =========================================
+                
+                // 1. Трясём поле ввода
+                nameInput.classList.add('shake');
+                setTimeout(() => {
+                    nameInput.classList.remove('shake');
+                }, 500);
+                
+                // 2. Меняем подпись на случайное сообщение об ошибке
+                const randomIndex = Math.floor(Math.random() * errorMessages.length);
+                let errorText = errorMessages[randomIndex].replace('{name}', CORRECT_NAME);
+                
+                hint.innerHTML = `😅 ${errorText}`;
+                hint.classList.add('error-hint');
+                
+                // 3. Подсвечиваем поле красным
+                nameInput.style.borderColor = '#ff8787';
+                nameInput.style.backgroundColor = '#fff0f0';
+                
+                // 4. Очищаем поле, чтобы попробовала снова (НО НЕ ВСЕГДА — пусть сама решит)
+                // nameInput.value = ''; // Раскомментируй, если хочешь очищать поле при ошибке
+                
+                // 5. Блокируем кнопку, если поле пустое
+                if (nameInput.value.trim() === '') {
+                    enterBtn.disabled = true;
+                }
+            }
+        });
+
+        // Сбрасываем подсветку, когда она снова печатает
+        nameInput.addEventListener('focus', function() {
+            this.style.borderColor = '#ffd4d4';
+            this.style.backgroundColor = 'white';
+            hint.classList.remove('error-hint');
+            hint.innerHTML = '<span class="heart">❤️</span> Только настоящее имя, пожалуйста <span class="heart">❤️</span>';
+        });
+
+        // На случай, если пользователь загрузил страницу, но уже вводил имя раньше
+        window.onload = function() {
+            // Если вдруг есть сохранённое имя — не очищаем? Лучше начать с чистого листа
+            // Но можно и приветствовать по имени, если она уже заходила
+            const savedName = localStorage.getItem('userName');
+            if (savedName) {
+                // Опционально: можно показать "С возвращением, savedName!"
+                // Но я предлагаю оставить чистое поле — так торжественнее
+            }
+        };
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>💍 Клятва на веки</title>
+    
+    <!-- ПОДКЛЮЧАЕМ ОБЩИЕ СТИЛИ -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- КРАСИВЫЙ ШРИФТ -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* СПЕЦИАЛЬНЫЕ СТИЛИ ТОЛЬКО ДЛЯ ЭТОЙ СТРАНИЦЫ */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(145deg, #fff5f5, #ffe0e0);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contract {
+            max-width: 700px;
+            width: 100%;
+            background: white;
+            border-radius: 40px;
+            padding: 50px 40px;
+            box-shadow: 0 30px 60px rgba(255, 100, 100, 0.15);
+            border: 1px solid rgba(255, 200, 200, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Декоративные сердечки на фоне */
+        .contract::before {
+            content: "❤️";
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 60px;
+            opacity: 0.1;
+            transform: rotate(15deg);
+        }
+
+        .contract::after {
+            content: "❤️";
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 80px;
+            opacity: 0.08;
+            transform: rotate(-10deg);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 0 rgba(255, 107, 107, 0.1);
+        }
+
+        .subtitle {
+            color: #b28b8b;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            font-style: italic;
+            border-bottom: 1px dashed #ffb8b8;
+            padding-bottom: 20px;
+        }
+
+        .contract-text {
+            background: #fff9f9;
+            padding: 35px 30px;
+            border-radius: 24px;
+            border: 2px solid #ffe0e0;
+            text-align: left;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #5a3a3a;
+            margin-bottom: 30px;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .contract-text p {
+            margin: 15px 0;
+        }
+
+        .highlight {
+            color: #ff4757;
+            font-weight: 700;
+            background: linear-gradient(120deg, #ffe0e0 0%, #ffe0e0 40%, transparent 80%);
+            padding: 0 8px;
+            border-radius: 20px;
+        }
+
+        .insert-name {
+            color: #ff4757;
+            font-weight: 800;
+            border-bottom: 3px solid #ff9e9e;
+            padding-bottom: 3px;
+            font-size: 1.3rem;
+        }
+
+        /* Стили для чекбокса */
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
+            padding: 15px;
+            background: #fff0f0;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .checkbox-wrapper:hover {
+            background: #ffe5e5;
+        }
+
+        #agree {
+            width: 28px;
+            height: 28px;
+            margin-right: 15px;
+            accent-color: #ff6b6b;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .checkbox-text {
+            font-size: 1.25rem;
+            color: #5a3a3a;
+            font-weight: 600;
+        }
+
+        .checkbox-text span {
+            color: #ff4757;
+            font-size: 1.4rem;
+        }
+
+        /* Кнопка */
+        #nextBtn {
+            background: linear-gradient(145deg, #ff8a8a, #ff6b6b);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            letter-spacing: 2px;
+            opacity: 0.5;
+            transform: scale(0.98);
+            pointer-events: none;
+        }
+
+        #nextBtn.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        #nextBtn.active:hover {
+            background: linear-gradient(145deg, #ff7676, #ff5252);
+            box-shadow: 0 15px 30px rgba(255, 80, 80, 0.4);
+            transform: scale(1.02);
+        }
+
+        #nextBtn i {
+            font-style: normal;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Дата */
+        .date {
+            margin-top: 30px;
+            color: #b28b8b;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        /* Для мобильных */
+        @media (max-width: 480px) {
+            .contract { padding: 30px 20px; }
+            h1 { font-size: 1.8rem; }
+            .contract-text { font-size: 1rem; padding: 20px; }
+            #nextBtn { padding: 15px 40px; font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="contract">
+        <h1>💕 ЛИЦЕНЗИОННОЕ СОГЛАШЕНИЕ</h1>
+        <div class="subtitle">О совместной жизни и вечной любви</div>
+        
+        <div class="contract-text">
+            <p>🎀 <strong>Я, <span class="insert-name">________</span>,</strong></p>
+            <p>❄️ находясь в здравом уме и трезвой памяти,</p>
+            <p>💞 будучи очарованной твоими пирожками и оладьями,</p>
+            <p>🔥 <span class="highlight">ТОРЖЕСТВЕННО ОБЯЗУЮСЬ:</span></p>
+            <p>✅ Любить тебя даже когда у тебя плохое настроение</p>
+            <p>✅ Ценить каждый момент, проведённый вместе</p>
+            <p>✅ Делиться последним кусочком пиццы (ну, почти всегда)</p>
+            <p>✅ И главное — <strong>жить с тобой до самой старости</strong>,</p>
+            <p>👵👴 держаться за ручки и ворчать друг на друга</p>
+            <p>⭐️ Нарушение условий карается обнимашками и массажем.</p>
+        </div>
+        
+        <!-- ЧЕКБОКС -->
+        <label class="checkbox-wrapper" for="agree">
+            <input type="checkbox" id="agree">
+            <span class="checkbox-text">
+                <span>❤️</span> Я прочитала и согласна <span>❤️</span>
+            </span>
+        </label>
+        
+        <!-- КНОПКА (ИЗНАЧАЛЬНО НЕАКТИВНА) -->
+        <button id="nextBtn">
+            <span>💍 ПРИНИМАЮ И КЛЯНУСЬ</span> 
+            <i>💫</i>
+        </button>
+        
+        <div class="date">
+            🗓️ 14 февраля 2026 года — день, когда всё стало официальным
+        </div>
+    </div>
+
+    <script>
+        // =========================================
+        // ЛОГИКА СТРАНИЦЫ: ЧЕКБОКС + КНОПКА
+        // =========================================
+        
+        const checkbox = document.getElementById('agree');
+        const button = document.getElementById('nextBtn');
+        
+        // Когда меняется состояние чекбокса
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                // Если галочка поставлена — активируем кнопку
+                button.classList.add('active');
+                // Маленькая анимация радости
+                button.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    button.style.transform = 'scale(1)';
+                }, 200);
+            } else {
+                // Если галочку сняли — кнопка гаснет
+                button.classList.remove('active');
+            }
+        });
+        
+        // Нажатие на кнопку — переходим дальше
+        button.addEventListener('click', function() {
+            if (button.classList.contains('active')) {
+                // Добавляем эффект пульса перед переходом
+                button.style.transform = 'scale(0.95';
+                setTimeout(() => {
+                    window.location.href = '2-desyatka.html';
+                }, 300);
+            }
+        });
+        
+        // Для красоты: если нажать Enter на чекбоксе
+        document.getElementById('agree').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                this.checked = !this.checked;
+                this.dispatchEvent(new Event('change'));
+            }
+        });
+    </script>
+    
+    <!-- ПОДКЛЮЧАЕМ ОБЩИЙ СКРИПТ -->
+    <script src="js/script.js"></script>
+</body>
+</html>
